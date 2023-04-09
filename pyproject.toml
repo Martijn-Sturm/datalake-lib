@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "datalake-lib"
+version = "0.1.0"
+description = ""
+authors = ["Martijn Sturm <martijn.sturm@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "datalake_lib"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aws-cdk-lib = "^2.73.0"
+constructs = "^10.1.306"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
