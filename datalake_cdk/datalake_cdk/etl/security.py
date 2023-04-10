@@ -1,29 +1,19 @@
 from aws_cdk import aws_glue
 from constructs import Construct
-import dataclasses
 import typing
 
-
-@dataclasses.dataclass
-class SecurityConfigurationProperties:
-    cloudwatch_kms_key_arn: str
-    jobbookmark_kms_key_arn: str
-    s3_encryption_kms_key_arn: str
+if typing.TYPE_CHECKING:
+    from datalake_lib.etl import security
 
 
-class SecurityConfiguration(typing.Protocol):
-    def get_name(self) -> str:
-        ...
-
-
-class CDKSecurityConfiguration(Construct, SecurityConfiguration):
+class CDKSecurityConfiguration(Construct):
     sec_config_id = "sec-config"
 
     def __init__(
         self,
         scope: Construct,
         id: str,
-        properties: SecurityConfigurationProperties,
+        properties: "security.SecurityConfigurationProperties",
     ) -> None:
         super().__init__(scope, id)
         self._name = f"{id}-{self.sec_config_id}"

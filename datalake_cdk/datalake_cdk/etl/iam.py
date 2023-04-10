@@ -2,18 +2,7 @@ from aws_cdk import aws_iam
 from constructs import Construct
 import typing
 import os
-import dataclasses
-
-
-class Role(typing.Protocol):
-    def get_arn(self) -> str:
-        ...
-
-
-@dataclasses.dataclass
-class BucketAccessConfiguration:
-    bucket_arn: str
-    bucket_paths: typing.Optional[typing.Sequence[os.PathLike]] = None
+from datalake_lib.etl import iam
 
 
 class CdkGlueJobRole(aws_iam.Role):
@@ -22,10 +11,10 @@ class CdkGlueJobRole(aws_iam.Role):
         scope: Construct,
         id: str,
         bucket_read_access_configurations: typing.Sequence[
-            BucketAccessConfiguration
+            iam.BucketAccessConfiguration
         ],
         bucket_write_access_configurations: typing.Sequence[
-            BucketAccessConfiguration
+            iam.BucketAccessConfiguration
         ],
         *,
         description=None,

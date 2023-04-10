@@ -1,10 +1,5 @@
-import typing
 from aws_cdk import aws_s3, RemovalPolicy
 from constructs import Construct
-
-
-class Bucket(typing.Protocol):
-    pass
 
 
 class CdkBucket(aws_s3.Bucket):

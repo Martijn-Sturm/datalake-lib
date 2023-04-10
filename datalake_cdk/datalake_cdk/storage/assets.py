@@ -6,17 +6,10 @@ from pathlib import Path
 from constructs import Construct
 
 if typing.TYPE_CHECKING:
-    from datalake_lib.storage import bucket
+    from datalake_cdk.storage import bucket
 
 
-class Asset(typing.Protocol):
-    def upload_to_bucket(
-        self, bucket: "bucket.Bucket", object_key: os.PathLike
-    ) -> uri.S3Uri:
-        ...
-
-
-class CdkAsset(Asset):
+class CdkAsset:
     def __init__(self, asset_name: str, path_to_asset: os.PathLike) -> None:
         self._name = asset_name
         self._path_to_asset = Path(path_to_asset)

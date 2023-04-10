@@ -21,14 +21,14 @@ tests-no-zope = ["cloudpickle", "cloudpickle", "hypothesis", "hypothesis", "mypy
 
 [[package]]
 name = "aws-cdk-asset-awscli-v1"
-version = "2.2.133"
+version = "2.2.134"
 description = "A library that contains the AWS CLI for use in Lambda Layers"
 category = "main"
 optional = false
 python-versions = "~=3.7"
 files = [
-    {file = "aws-cdk.asset-awscli-v1-2.2.133.tar.gz", hash = "sha256:5eea7898e61ac9fcb77fadf18c2e4f34698819014d438836b804f1ba467c9736"},
-    {file = "aws_cdk.asset_awscli_v1-2.2.133-py3-none-any.whl", hash = "sha256:6beb06a3765cb07f03b9eb67d2ba41699762eaf8bcc8ffcfa6230c69177498d4"},
+    {file = "aws-cdk.asset-awscli-v1-2.2.134.tar.gz", hash = "sha256:a8928b826ae6eb53d30ce0a840143cdb1db9e47d00ade09c9f0795f6f4d4659f"},
+    {file = "aws_cdk.asset_awscli_v1-2.2.134-py3-none-any.whl", hash = "sha256:dbfcf0b60ea747323046a2f8ebd451b4261cc20177d101cc2e78ad371c37e6f6"},
 ]
 
 [package.dependencies]
@@ -55,14 +55,14 @@ typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
 name = "aws-cdk-asset-node-proxy-agent-v5"
-version = "2.0.109"
+version = "2.0.111"
 description = "@aws-cdk/asset-node-proxy-agent-v5"
 category = "main"
 optional = false
 python-versions = "~=3.7"
 files = [
-    {file = "aws-cdk.asset-node-proxy-agent-v5-2.0.109.tar.gz", hash = "sha256:b38ba760be2296a812a3af0dff64544aa375232dedec15bf7f07309568ae9ec8"},
-    {file = "aws_cdk.asset_node_proxy_agent_v5-2.0.109-py3-none-any.whl", hash = "sha256:289784a25d90147657a82e413ee6655f57f17f837eee780543a339a206ff12b4"},
+    {file = "aws-cdk.asset-node-proxy-agent-v5-2.0.111.tar.gz", hash = "sha256:1d7a01d349d1d1c6d3d405e8f1196ce46a01e550cae987c5098fda588c0c5d6e"},
+    {file = "aws_cdk.asset_node_proxy_agent_v5-2.0.111-py3-none-any.whl", hash = "sha256:0e05d497ec17aaad14f181fde41c42a9df8b57520abdb735ac53613834e0e08a"},
 ]
 
 [package.dependencies]
@@ -199,43 +199,6 @@ files = [
 jsii = ">=1.80.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
-
-[[package]]
-name = "datalake-cdk"
-version = "0.1.0"
-description = ""
-category = "main"
-optional = false
-python-versions = "^3.10"
-files = []
-develop = true
-
-[package.dependencies]
-aws-cdk-lib = "^2.73.0"
-constructs = "^10.1.306"
-datalake-lib = {path = "../datalake_lib", develop = true}
-
-[package.source]
-type = "directory"
-url = "datalake_cdk"
-
-[[package]]
-name = "datalake-lib"
-version = "0.1.0"
-description = ""
-category = "main"
-optional = false
-python-versions = "^3.10"
-files = []
-develop = true
-
-[package.dependencies]
-aws-cdk-lib = "^2.73.0"
-constructs = "^10.1.306"
-
-[package.source]
-type = "directory"
-url = "datalake_lib"
 
 [[package]]
 name = "exceptiongroup"
@@ -527,4 +490,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "eaed1a35a33a45ee95bd7a9898d15c24376229c40e74aae0cd99fd3932d019e1"
+content-hash = "fc24a5714d1a477cdc58ce2a66978b056fa698e6d61e8feed259afbbb2087a02"

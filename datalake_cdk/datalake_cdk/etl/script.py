@@ -6,12 +6,7 @@ if typing.TYPE_CHECKING:
     from datalake_lib import python
 
 
-class JobScript(typing.Protocol):
-    def get_script_s3_uri(self) -> "uri.S3Uri":
-        ...
-
-
-class CdkJobScript(JobScript):
+class CdkJobScript:
     def __init__(
         self,
         script_bucket_object: "objects.BucketObject",

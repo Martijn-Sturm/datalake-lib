@@ -1,17 +1,8 @@
-import typing
 from datalake_lib.storage import bucket, assets
 import os
 
-if typing.TYPE_CHECKING:
-    from datalake_lib.storage import uri
 
-
-class BucketObject(typing.Protocol):
-    def get_object_s3_uri(self) -> "uri.S3Uri":
-        ...
-
-
-class CdkBucketObject(BucketObject):
+class CdkBucketObject:
     def __init__(
         self,
         object: assets.Asset,

@@ -1,17 +1,16 @@
 [tool.poetry]
-name = "root"
+name = "datalake_lib"
 version = "0.1.0"
 description = ""
 authors = ["Martijn Sturm <martijn.sturm@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [{ include = "datalake_lib" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 aws-cdk-lib = "^2.73.0"
 constructs = "^10.1.306"
-datalake-lib = {path = "datalake_lib", develop = true}
-datalake-cdk = {path = "datalake_cdk", develop = true}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

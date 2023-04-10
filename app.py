@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import aws_cdk as cdk
-
-from datalake_lib.storage import bucket, objects, assets
-from datalake_lib.etl import job, arguments, script, iam, options
+from datalake_cdk.storage import bucket, objects, assets
+from datalake_cdk.etl import job, script, iam
+from datalake_lib.etl import arguments, options
+from datalake_lib.etl.iam import BucketAccessConfiguration
+from datalake_lib.etl.job import JobProperties
 from datalake_lib import python
 
 
@@ -36,10 +38,10 @@ class DatalakeStack(cdk.Stack):
             self,
             "glue",
             bucket_read_access_configurations=[
-                iam.BucketAccessConfiguration(glue_bucket.bucket_arn)
+                BucketAccessConfiguration(glue_bucket.bucket_arn)
             ],
             bucket_write_access_configurations=[
-                iam.BucketAccessConfiguration(
+                BucketAccessConfiguration(
                     glue_bucket.bucket_arn,
                 )
             ],
@@ -66,7 +68,7 @@ class DatalakeStack(cdk.Stack):
         job.Job(
             self,
             "etl",
-            job.JobProperties(
+            JobProperties(
                 script=job_script,
                 iam_role=glue_role,
                 max_retries=0,
