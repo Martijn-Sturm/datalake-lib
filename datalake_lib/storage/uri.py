@@ -14,7 +14,9 @@ class S3Uri:
 
     def _validate_value(self):
         if " " in self._value:
-            raise InvalidS3UriException(self._value, "S3 uri contains whitespaces")
+            raise InvalidS3UriException(
+                self._value, "S3 uri contains whitespaces"
+            )
         self._validate_head()
 
     def _validate_head(self):

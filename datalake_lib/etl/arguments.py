@@ -20,7 +20,7 @@ class DefaultArgument(typing.Protocol):
 
 
 class ScriptLocation(DefaultArgument):
-    def __init__(self, script_location: uri.S3Uri) -> None:
+    def __init__(self, script_location: "uri.S3Uri") -> None:
         self._script_s3_uri = str(script_location)
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
@@ -36,11 +36,14 @@ class CustomDefaultArgument(DefaultArgument):
         return {process_arg_name(self._name): self._value}
 
 
-class DatalakeFormatArgument(DefaultArgument):
+class DatalakeFormatArgument:
     def __init__(
-        self, datalake_formats: typing.Sequence[options.DatalakeFormat]
+        self,
+        datalake_formats: typing.Sequence["options.DatalakeFormat"],
     ) -> None:
-        self._formats = [str(format) for format in datalake_formats]
+        self._formats: typing.Sequence[str] = [
+            format.value for format in datalake_formats
+        ]
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
         return {"--datalake-formats": ",".join(self._formats)}
@@ -64,29 +67,48 @@ class PipInstallablePackage:
 class PythonPackageDependencies(DefaultArgument):
     def __init__(
         self,
-        pip_installable_packages: typing.Sequence[PipInstallablePackage],
-        s3_python_wheels: typing.Sequence[uri.S3Uri],
+        pip_installable_packages: typing.Optional[
+            typing.Sequence[PipInstallablePackage]
+        ] = None,
+        s3_python_wheels: typing.Optional[typing.Sequence["uri.S3Uri"]] = None,
     ) -> None:
-        self._pip_installable_packages = pip_installable_packages
-        self._s3_python_wheels = [str(uri) for uri in s3_python_wheels]
+        self._pip_installable_packages = (
+            pip_installable_packages if pip_installable_packages else []
+        )
+        self._s3_python_wheels = (
+            [str(uri) for uri in s3_python_wheels] if s3_python_wheels else []
+        )
 
     @staticmethod
-    def _get_specification_for_pip_package(package: PipInstallablePackage) -> str:
+    def _get_specification_for_pip_package(
+        package: PipInstallablePackage,
+    ) -> str:
         if package.version_value:
             if package.version_specifier:
-                return f"{package.package_name}{package.version_specifier}{package.version_value}"
+                return (
+                    f"{package.package_name}{package.version_specifier.value}"
+                    f"{package.version_value}"
+                )
             else:
                 return f"{package.package_name}=={package.version_value}"
         else:
             return package.package_name
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
-        pip_packages = [
-            self._get_specification_for_pip_package(pip_package)
-            for pip_package in self._pip_installable_packages
-        ]
+        pip_packages = (
+            [
+                self._get_specification_for_pip_package(pip_package)
+                for pip_package in self._pip_installable_packages
+            ]
+            if self._pip_installable_packages
+            else []
+        )
         argument_value = ",".join(self._s3_python_wheels + pip_packages)
-        return {process_arg_name("additional-python-modules"): argument_value}
+        return (
+            {process_arg_name("additional-python-modules"): argument_value}
+            if argument_value
+            else {}
+        )
 
 
 class EnableArgument(DefaultArgument):
@@ -96,7 +118,9 @@ class EnableArgument(DefaultArgument):
         self._enable = enable
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
-        return {process_arg_name(self.arg_name): "true"} if self._enable else {}
+        return (
+            {process_arg_name(self.arg_name): "true"} if self._enable else {}
+        )
 
 
 class EnableAutoscaling(EnableArgument):
@@ -130,10 +154,10 @@ class EnableMetrics(EnableArgument):
 
 
 class ExtraFiles(DefaultArgument):
-    def __init__(self, s3_file_uris: typing.Sequence[uri.S3Uri]):
+    def __init__(self, s3_file_uris: typing.Sequence["uri.S3Uri"]):
         self._uris = [str(s3_uri) for s3_uri in s3_file_uris]
-        for uri in self._uris:
-            if uri.endswith("/"):
+        for s3_uri in self._uris:
+            if s3_uri.endswith("/"):
                 raise ValueError("directories are not allowed. uri:", uri)
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
@@ -141,11 +165,13 @@ class ExtraFiles(DefaultArgument):
 
 
 class ExtraPythonFiles(DefaultArgument):
-    def __init__(self, s3_python_file_uris: typing.Sequence[uri.S3Uri]):
+    def __init__(self, s3_python_file_uris: typing.Sequence["uri.S3Uri"]):
         self._uris = [str(s3_uri) for s3_uri in s3_python_file_uris]
-        for uri in self._uris:
-            if not uri.endswith(".py"):
-                raise ValueError("Expected python file to end with '.py'", "uri:", uri)
+        for s3_uri in self._uris:
+            if not s3_uri.endswith(".py"):
+                raise ValueError(
+                    "Expected python file to end with '.py'", "uri:", s3_uri
+                )
 
     def get_dict_representation(self) -> typing.Dict[str, str]:
         return {process_arg_name("extra-py-files"): ",".join(self._uris)}
@@ -169,7 +195,7 @@ class JobBookmark(DefaultArgument):
 
 
 class TemporaryDirectory(DefaultArgument):
-    def __init__(self, s3_path_to_dir: uri.S3Uri):
+    def __init__(self, s3_path_to_dir: "uri.S3Uri"):
         self._path = s3_path_to_dir
 
     def get_dict_representation(self) -> typing.Dict[str, str]:

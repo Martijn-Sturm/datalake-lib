@@ -1,7 +1,4 @@
 import typing
-from constructs import Construct
-import dataclasses
-import enum
 
 if typing.TYPE_CHECKING:
     from datalake_lib.storage import uri
@@ -9,12 +6,12 @@ if typing.TYPE_CHECKING:
     from datalake_lib import python
 
 
-class Script(typing.Protocol):
+class JobScript(typing.Protocol):
     def get_script_s3_uri(self) -> "uri.S3Uri":
         ...
 
 
-class CdkScript(Script):
+class CdkJobScript(JobScript):
     def __init__(
         self,
         script_bucket_object: "objects.BucketObject",

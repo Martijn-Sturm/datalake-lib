@@ -5,7 +5,7 @@ description = ""
 authors = ["Martijn Sturm <martijn.sturm@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "datalake_lib"}]
+packages = [{ include = "datalake_lib" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -23,3 +23,6 @@ pytest = "^7.3.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79

@@ -13,7 +13,7 @@ class Role(typing.Protocol):
 @dataclasses.dataclass
 class BucketAccessConfiguration:
     bucket_arn: str
-    bucket_paths: typing.Optional[typing.Sequence[os.PathLike]]
+    bucket_paths: typing.Optional[typing.Sequence[os.PathLike]] = None
 
 
 class CdkGlueJobRole(aws_iam.Role):
@@ -21,8 +21,12 @@ class CdkGlueJobRole(aws_iam.Role):
         self,
         scope: Construct,
         id: str,
-        bucket_read_access_configurations: typing.Sequence[BucketAccessConfiguration],
-        bucket_write_access_configurations: typing.Sequence[BucketAccessConfiguration],
+        bucket_read_access_configurations: typing.Sequence[
+            BucketAccessConfiguration
+        ],
+        bucket_write_access_configurations: typing.Sequence[
+            BucketAccessConfiguration
+        ],
         *,
         description=None,
         external_ids=None,
@@ -42,7 +46,8 @@ class CdkGlueJobRole(aws_iam.Role):
                 aws_iam.ManagedPolicy.from_managed_policy_arn(
                     scope,
                     id="servicerole",
-                    managed_policy_arn="arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole",
+                    managed_policy_arn="arn:aws:iam::aws:policy/"
+                    "service-role/AWSGlueServiceRole",
                 )
             ],
             role_name=role_name,
@@ -63,6 +68,9 @@ class CdkGlueJobRole(aws_iam.Role):
                     config.bucket_arn, config.bucket_paths
                 )
             )
+
+    def get_arn(self):
+        return self.role_arn
 
     @staticmethod
     def _generate_bucket_read_policy_statements(
@@ -119,7 +127,10 @@ class CdkGlueJobRole(aws_iam.Role):
                         effect=aws_iam.Effect.ALLOW,
                         resources=[f"{bucket_arn}/*"]
                         if not paths_in_bucket
-                        else [f"{bucket_arn}/{path}/*" for path in paths_in_bucket],
+                        else [
+                            f"{bucket_arn}/{path}/*"
+                            for path in paths_in_bucket
+                        ],
                     ),
                 ]
             ),

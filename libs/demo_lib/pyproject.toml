@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "demo-lib"
+version = "0.1.0"
+description = ""
+authors = ["Martijn Sturm <martijn.sturm@cloudnation.nl>"]
+readme = "README.md"
+packages = [{include = "demo_lib"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

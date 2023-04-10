@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "glue-job-scripts"
+version = "0.1.0"
+description = ""
+authors = ["Martijn Sturm <martijn.sturm@cloudnation.nl>"]
+readme = "README.md"
+packages = [{ include = "glue_job_scripts" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.test.dependencies]
+glue-helper-lib = "^0.1.0"
+pytest = "^7.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+demo-lib = {path = "../libs/demo_lib", develop = true}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
