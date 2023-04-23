@@ -8,14 +8,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aws-cdk-lib = "^2.73.0"
 constructs = "^10.1.306"
-datalake-lib = {path = "datalake_lib", develop = true}
-datalake-cdk = {path = "datalake_cdk", develop = true}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 flake8 = "^6.0.0"
+poetry = "^1.4.2"
 
 
 [tool.poetry.group.test.dependencies]

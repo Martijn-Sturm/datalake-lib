@@ -8,6 +8,8 @@ from datalake_lib.etl.iam import BucketAccessConfiguration
 from datalake_lib.etl.job import JobProperties
 from datalake_lib import python
 
+move_to_repo_root_path = Path("..")
+
 
 class DatalakeStack(cdk.Stack):
     def __init__(self, scope, id, **kwargs):
@@ -15,18 +17,25 @@ class DatalakeStack(cdk.Stack):
 
         glue_bucket = bucket.CdkBucket(self, "glue-assets")
 
-        local_lib_wheel_path = Path(
-            "libs/demo_lib/dist/demo_lib-0.1.0-py3-none-any.whl"
+        local_lib_wheel_path = (
+            move_to_repo_root_path
+            / "libs/demo_lib/dist/demo_lib-0.1.0-py3-none-any.whl"
         )
         demo_lib = objects.CdkBucketObject(
-            assets.CdkAsset("demo_lib", local_lib_wheel_path),
+            assets.CdkAsset(
+                str(move_to_repo_root_path / "demo_lib"), local_lib_wheel_path
+            ),
             bucket=glue_bucket,
             object_key=Path("wheels"),
         )
 
-        job_script_path = Path("glue_job_scripts/demo_script.py")
+        job_script_path = (
+            move_to_repo_root_path / "glue_job_scripts/demo_script.py"
+        )
         job_script_file = objects.CdkBucketObject(
-            assets.CdkAsset("job_script", job_script_path),
+            assets.CdkAsset(
+                str(move_to_repo_root_path / "job_script"), job_script_path
+            ),
             bucket=glue_bucket,
             object_key=Path("scripts"),
         )

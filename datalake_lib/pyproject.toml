@@ -9,8 +9,6 @@ packages = [{ include = "datalake_lib" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aws-cdk-lib = "^2.73.0"
-constructs = "^10.1.306"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

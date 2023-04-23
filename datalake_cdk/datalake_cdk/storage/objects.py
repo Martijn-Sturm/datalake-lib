@@ -1,12 +1,12 @@
-from datalake_lib.storage import bucket, assets
+from datalake_cdk.storage import bucket, assets
 import os
 
 
 class CdkBucketObject:
     def __init__(
         self,
-        object: assets.Asset,
-        bucket: bucket.Bucket,
+        object: assets.CdkAsset,
+        bucket: bucket.CdkBucket,
         object_key: os.PathLike,
     ) -> None:
         self._bucket = bucket
