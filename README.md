@@ -13,3 +13,5 @@ This package contains some interfaces and classes that model the Glue concepts. 
 This package contains constructs to deploy Glue entities as resources to AWS making use of CDK. The `app.py` file contains the actual instantiation and definition of the CDK stack containing the resources.
 
 This package uses the datalake-lib package.
+
+Check out the readme within this package's folder for instructions how to get it up and running.
