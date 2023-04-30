@@ -497,15 +497,14 @@ category = "main"
 optional = false
 python-versions = "^3.10"
 files = []
-develop = true
-
-[package.dependencies]
-aws-cdk-lib = "^2.73.0"
-constructs = "^10.1.306"
+develop = false
 
 [package.source]
-type = "directory"
-url = "../datalake_lib"
+type = "git"
+url = "https://github.com/Martijn-Sturm/datalake-lib.git"
+reference = "HEAD"
+resolved_reference = "898cb43b8a7cbe78720ac3131a10c10cafc50ceb"
+subdirectory = "datalake_lib"
 
 [[package]]
 name = "distlib"
@@ -1623,4 +1622,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "86cef95b1625995870c3c134ee99ea6b359f16e58cce7940b67909cc8de4ccba"
+content-hash = "22207ad650aa0174772573b946b84340315d1e602ca266236184e6048eba788d"
