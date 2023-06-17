@@ -148,6 +148,15 @@ class EnableContinuousCloudwatchLog(DefaultArgument):
 class EnableGlueCatalog(EnableArgument):
     arg_name = "enable-glue-datacatalog"
 
+    def get_dict_representation(self) -> typing.Dict[str, str]:
+        return (
+            # We need here to pass an empty string instead of true :wtf:
+            # https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-data-catalog-hive.html
+            {process_arg_name(self.arg_name): ""}
+            if self._enable
+            else {}
+        )
+
 
 class EnableMetrics(EnableArgument):
     arg_name = "enable-metrics"
