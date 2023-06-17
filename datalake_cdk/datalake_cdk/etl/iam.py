@@ -27,7 +27,7 @@ class CdkGlueJobRole(aws_iam.Role):
         super().__init__(
             scope,
             id,
-            assumed_by=aws_iam.ServicePrincipal("glue"),
+            assumed_by=aws_iam.ServicePrincipal("glue.amazonaws.com"),
             description=description,
             external_ids=external_ids,
             inline_policies=inline_policies,
